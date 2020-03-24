@@ -1,10 +1,9 @@
 //
-//  TheGame.hpp
+//  Template.h
+//
 //  Question_Template
 //
 //  Created by ben jurenka on 3/19/20.
-//  Copyright © 2020 ben jurenka. All rights reserved.
-//
 
 #ifndef Template_h
 #define Template_h
@@ -17,7 +16,7 @@
 
 class Template {
 public:
-    Template( );         //creates a game object that calls Init()
+    Template( );         //creates a template object that calls Init()
 
     int Init( );        // function that initializes everything - SDL_Init(...), window, renderer, TTF_INIT, IMG_INIT
     
@@ -27,8 +26,8 @@ public:
     
     int InitQuestion( );    //load background pic for question, and create rectangles for answer boxes
    
-    void AskQuestion(  std::array<std::string, 5> qAndA, int answer );
-
+    void AskQuestion(  std::array<std::string, 5> qAndA, int answer ); //sets variables for question and calls :
+                                                                             // InitQuestion, OnQuestion, ResetQuestion
     void OnQuestion( );     //controler for question
     
     void DisplayQuestion( );        //renders images and images for question to window
