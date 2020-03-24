@@ -13,7 +13,6 @@
 int Template::InitQuestion(){
         //make sure texture is free to use
     if(background_tex != NULL){
-        //SDL_DestroyTexture(background_tex);
         background_tex = NULL;
     }
             //load background image for question
