@@ -3,8 +3,6 @@
 //  Question_Template
 //
 //  Created by ben jurenka on 3/19/20.
-//  Copyright © 2020 ben jurenka. All rights reserved.
-//
 
 #include "Template.h"
 
