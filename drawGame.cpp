@@ -1,6 +1,6 @@
 // Concept for brick break draw method written by Trel Johnson
 // #updated by Ben Jurenka
-#include "TrelGraphics2_1.h"
+#include "TrelGraphics2.h"
 
 
 // global variables, these will be initialized in main or TrelGraphics2::start method
