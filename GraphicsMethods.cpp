@@ -1,8 +1,9 @@
-#include "GraphicsMethods.h"
+#include "GraphicsMethods.h" //written by Trel J
 /*************************
 name: drawScreen
 description: ** this is a prototpye some things will be changed **
 	Adds pictures from Brick,Ball,Paddle, and Level objects to frame rotation.
+Comments Updated: Ben Jurenka
 **************************/
 
 void drawScreen( std::vector<Brick> bricks, std::vector<Ball> balls, Paddle paddle, Level background )
