@@ -1,52 +1,63 @@
-// Concept for brick break draw method written by Trel Johnson
-// #updated by Ben Jurenka
-#include "TrelGraphics2.h"
+#include "GraphicsMethods.h"
+/*************************
+name: drawScreen
+description: ** this is a prototpye some things will be changed **
+	Adds pictures from Brick,Ball,Paddle, and Level objects to frame rotation.
+**************************/
 
-
-// global variables, these will be initialized in main or TrelGraphics2::start method
-TrelGraphics2 ballPictures( "ballpictures.bmp" );
-TrelGraphics2 paddlePictures( "paddlepictures.bmp" );
-TrelGraphics2 brickPictures( "brickpictures.bmp" );
-/***********************************************************
-Name: drawGame
-Description: renders balls, paddle, and bricks to screen.
-Written By: Trel Johnson
-***********************************************************/
-
-void drawGame( std::vector<Ball> balls, Paddle paddle, std::vector<Brick> bricks )
+void drawScreen( std::vector<Brick> bricks, std::vector<Ball> balls, Paddle paddle, Level background )
 {
-	// these numbers are just there to exist, obviously will be changed to match actual values.
-	// plenty of the math will be adjusted based on exact nature of some numbers and values.
-	const static int BALL_WIDTH = 20;
-	const static int BALL_HEIGHT = 20; 
-	const static int PADDLE_WIDTH = 20;
-	const static int PADDLE_HEIGHT = 20;
-	const static int BRICK_WIDTH = 20;
-	const static int BRICK_HEIGHT = 20;
-	
-    int x, y;       //variables for rendering at location on windown, reused for ball, brick, paddle
-          
-                    //add ball to renderer based on variables stored in ball object
+	static TrelGraphics2 brickPictures( "brickpictures.txt" );
+	static TrelGraphics2 ballPictures( "ballpictures.txt" );
+	static TrelGraphics2 paddlePictures( "paddlepictures.txt" );
+	static TrelGraphics2 backgroundPictures( "backgroundpictures.txt" );
+	int x, y, w, h;
+	double angle;
+	bool vFlip, hFlip;
+	SDL_Point center;
+	backgroundPictures.addPictureToFrame( background.getPictureID( ), 0, 0 );
+	for ( Brick brick : bricks )
+	{
+		w = brick.getWidth( );	// This is working under the assumtion that getWidth returns the distance to the edge from the center.
+		h = brick.getHeight( ); // This is working under the assumtion that getHeight returns the distance to the edge from teh center.
+		x = brick.getCenterX( ) - w;
+		y = brick.getCenterY( ) - h;
+		angle = brick.getDirection( );
+		vFlip = brick.getVFlip( );	// Temperory concept, likely to be replaced by math, will depend on art and logic team.
+		hFlip = brick.getHFlip( );	// ^
+		center = ( x + w, y + h );
+		brickPictures.addPictureToFrameRotation( brick.getPicID( ), x, y, angle, vFlip, hFlip, center );
+	}
 	for ( Ball ball : balls )
 	{
-		x = ball.getCenterX( )-BALL_WIDTH;
-		y = ball.getCenterY( )-BALL_HEIGHT;
-		ballpictures.addPictureToFrameRotation( 0, x, y, ball.getDirection( ), false, false );
-                    // doesn't include proper centering yet, will add that in final version
+		w = ball.getWidth( );	// This is working under the assumtion that getWidth returns the distance to the edge from the center.
+		h = ball.getHeight( ); // This is working under the assumtion that getHeight returns the distance to the edge from the center.
+		x = ball.getCenterX( ) - w;
+		y = ball.getCenterY( ) - h;
+		angle = ball.getDirection( );
+		vFlip = ball.getVFlip( );	// Temperory concept, likely to be replaced by math, will depend on art and logic team.
+		hFlip = ball.getHFlip( );	// ^
+		center = (x + w, y + h);
+		ballPictures.addPictureToFrameRotation( ball.getPicID( ), x, y, angle, vFlip, hFlip, center );
 	}
-                    //add paddle to renderer based on variables stored in paddle object
-	x = paddle.getCenterX( ) - PADDLE_WIDTH;
-	y = paddle.getCenterY( ) - PADDLE_HEIGHT;
-	paddlePictures.addPictureToFrameRotation( 0, x, y, paddle.getDirection( ), false, false );
-    
-                    //add all bricks to renderer based on the variables stored in brick objects
-    for ( Brick brick : bricks )
-	{
-		x = brick.getCenterX( ) - BRICK_WIDTH;
-		y = brick.getCenterY( ) - BRICK_HEIGHT;
-		brickPictures.addPictureToFrameRotation( 0, x, y, brick.getDirection( ), false, false );
-	}
-    
-                    // Display all changes made
-	TrelGraphics2::drawFrame( );
+	w = paddle.getWidth( );	// This is working under the assumtion that getWidth returns the distance to the edge from the center.
+	h = paddle.getHeight( ); // This is working under the assumtion that getHeight returns the distance to the edge from teh center.
+	x = paddle.getCenterX( ) - w;
+	y = paddle.getCenterY( ) - h;
+	angle = paddle.getDirection( );
+	vFlip = paddle.getVFlip( );	// Temperory concept, likely to be replaced by math, will depend on art and logic team.
+	hFlip = paddle.getHFlip( );	// ^
+	center = (x + w, y + h);
+	paddlePictures.addPictureToFrameRotation( paddle.getPicID( ), x, y, angle, vFlip, hFlip, center );
+}
+/********************
+name: drawTitleScreen
+description: creates a static TrelGraphics2 object that holds
+	     one texture loaded from text stored in titleImage.txt file
+	     adds title image to window.
+********************/
+void drawTitleScreen( )
+{
+	static TrelGraphics2 titleImage( "titleImage.txt" );// Best way to handle it, not worth making a new constructor for one image, and doing seperalty is a bad idea with static local variables
+	titleImage.addPictureToFrame( 0, 0, 0 );
 }
