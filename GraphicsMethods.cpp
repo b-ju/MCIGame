@@ -50,12 +50,12 @@ void drawScreen( std::vector<Brick> bricks, std::vector<Ball> balls, Paddle padd
 	center = (x + w, y + h);
 	paddlePictures.addPictureToFrameRotation( paddle.getPicID( ), x, y, angle, vFlip, hFlip, center );
 }
-/********************
+/********************************************************
 name: drawTitleScreen
 description: creates a static TrelGraphics2 object that holds
 	     one texture loaded from text stored in titleImage.txt file
 	     adds title image to window.
-********************/
+**********************************************************/
 void drawTitleScreen( )
 {
 	static TrelGraphics2 titleImage( "titleImage.txt" );// Best way to handle it, not worth making a new constructor for one image, and doing seperalty is a bad idea with static local variables
