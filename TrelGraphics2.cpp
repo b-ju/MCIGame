@@ -3,11 +3,11 @@
 // comments updated by #Nick Brady , #Ben Jurenka
 
 
-SDL_Renderer* TrelGraphics2::gRenderer = NULL;			
+SDL_Renderer* TrelGraphics2::gRenderer = NULL;
 SDL_Window* TrelGraphics2::gWindow = NULL;
 int TrelGraphics2::windowWidth = 0;
 int TrelGraphics2::windowHeight = 0;
- 
+
 /***********************************************************
 Name: start
 Description: Initializes SDL, Opens a window and sets window title/width/height,
@@ -56,7 +56,7 @@ void TrelGraphics2::start( string windowTitle, int width, int height )
 
 /***********************************************************
 Name: close
-Description: closes renderer, window, and SDL and frees their memory, 
+Description: closes renderer, window, and SDL and frees their memory,
 must be called at the end of main.
 Written By: Trel Johnson
 ***********************************************************/
@@ -113,7 +113,7 @@ TrelGraphics2::TrelGraphics2( string fileName )
 
 /***********************************************************
 Name:TrelGraphics2
-Description: Creates a TrelGraphics2 object, reads an image list text file, assigns memory for them all and loads them all, then color keys them to given colors, 
+Description: Creates a TrelGraphics2 object, reads an image list text file, assigns memory for them all and loads them all, then color keys them to given colors,
 Written By: Trel Johnson
 ***********************************************************/
 
@@ -139,15 +139,15 @@ TrelGraphics2::TrelGraphics2( string fileName, Uint8 r, Uint8 g, Uint8 b )
 
 /***********************************************************
 Name:TrelGraphics2
-Description: Closes the TrelGraphics2 object and deletes all the assigned memory, 
-must be called at the end of the program. This should be all that's needed for all 
+Description: Closes the TrelGraphics2 object and deletes all the assigned memory,
+must be called at the end of the program. This should be all that's needed for all
 memory allocated to be deleted.
 Written By: Trel Johnson
 ***********************************************************/
 
 TrelGraphics2::~TrelGraphics2( )
 {
-    delete[] textures;
+    delete[ ] textures;
 
 }
 
@@ -165,16 +165,16 @@ int TrelGraphics2::createPictureFromFile( string fileName )
         cout << "ERROR: loading more images than spaces were assigned, assign more space to this object." << endl;
         return -1;
     }
-    textures[index]= TrelTexture( ) ;
+    textures[index] = TrelTexture( );
     textures[index].loadFromFile( fileName, gRenderer );
     index++;
-    return index-1;
+    return index - 1;
 }
 
 
 /***********************************************************
 Name:createPictureFromFileColor
-Description: same as createPictureFromFilebut will set the color key 
+Description: same as createPictureFromFilebut will set the color key
 for transparency to the given r,g,b values r,g,b must be from 0 to 255.
 Written By: Trel Johnson
 ***********************************************************/
@@ -195,7 +195,7 @@ int TrelGraphics2::createPictureFromFileColor( string fileName, Uint8 r, Uint8 g
 
 /***********************************************************
 Name:readImageListFromFile
-Description: reads a file and opens images writen in that file until file is done 
+Description: reads a file and opens images writen in that file until file is done
 or assigned memory is reached
 Written By: Trel Johnson
 ***********************************************************/
@@ -206,7 +206,7 @@ void TrelGraphics2::readImageListFromFile( string fileName )
     readFile.open( fileName.c_str( ) );
     string toOpen;
     getline( readFile, toOpen );
-    while ( readFile && index<size )
+    while ( readFile && index < size )
     {
         createPictureFromFile( toOpen );
         getline( readFile, toOpen );
@@ -217,7 +217,7 @@ void TrelGraphics2::readImageListFromFile( string fileName )
 
 /***********************************************************
 Name:readImageListFromFile
-Description: same as readImageListFromFile(string) but will set the color key for transparency 
+Description: same as readImageListFromFile(string) but will set the color key for transparency
 to the given r,g,b values. r,g,b must be from 0 to 255
 Written By: Trel Johnson
 ***********************************************************/
@@ -241,7 +241,7 @@ void TrelGraphics2::readImageListFromFileColor( string fileName, Uint8 r, Uint8 
 name: addPictureToFrame
 description:adds a picture to a frame, but does not draw it, call drawFrame() to draw all     pictures on frame.
     pictureId = index of picture to add
-    x,y 
+    x,y
 Written By: Trel Johnson
 **********************************************************/
 
@@ -279,13 +279,13 @@ description: adds a picture to a frame, but does not draw it, call drawFrame() t
 Written By: Trel Johnson
 **********************************************************/
 
-void TrelGraphics2::addPicturetoFrameRotation( int pictureID, int x, int y, double degrees, bool vFlip, bool hFlip )
+void TrelGraphics2::addPictureToFrameRotation( int pictureID, int x, int y, double degrees, bool vFlip, bool hFlip, SDL_Point center )
 {
     if ( pictureID >= index || pictureID < 0 )
     {
         return;
     }
-    SDL_RendererFlip flip=SDL_FLIP_NONE;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
     if ( !hFlip && vFlip )
     {
         flip = SDL_FLIP_VERTICAL;
@@ -296,9 +296,9 @@ void TrelGraphics2::addPicturetoFrameRotation( int pictureID, int x, int y, doub
     }
     if ( vFlip && hFlip )
     {
-        flip = (SDL_RendererFlip) (SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+        flip = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
     }
-    textures[pictureID].render( x, y, gRenderer, degrees, flip );
+    textures[pictureID].render( x, y, gRenderer, degrees, flip, &center );
 }
 
 
@@ -332,7 +332,7 @@ void TrelGraphics2::addRectToFrame( int x, int y, int w, int h, Uint8 r, Uint8 g
  description: draws frame to screen
  Written By: Trel Johnson
  **********************************************************/
- 
+
 void TrelGraphics2::drawFrame( )
 {
     SDL_RenderPresent( gRenderer );
@@ -403,7 +403,7 @@ int TrelGraphics2::getImageHeight( int pictureID )
 
 /*********************************************************
 name:setPictureColor
-description:set an additional color value multiplied into 
+description:set an additional color value multiplied into
 render copy operations of the specified, from pictureID, texture
 Written By: Trel Johnson
 **********************************************************/

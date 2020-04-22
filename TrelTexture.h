@@ -25,7 +25,7 @@ public:
 	// Deallocates texture
 	void free( );
 	// renders texture at given location
-	void render( int x, int y, SDL_Renderer* gRenderer, double angle=0, SDL_RendererFlip flip=SDL_FLIP_NONE, SDL_Point* center = NULL );
+	void render( int x, int y, SDL_Renderer* gRenderer, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Point* center = NULL );
 	void renderResize( int x, int y, SDL_Renderer* gRenderer, int w, int h, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Point* center = NULL );
 	// gets image dimentions
 	int getWidth( );
